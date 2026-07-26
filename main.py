@@ -29,15 +29,17 @@ async def analyze_and_send():
     {sample_apartment}
     """
     
-    # استخدام النموذج المعتمد
+    # 2. توليد التحليل الذكي عبر نموذج gemini-2.5-flash السريع
     response = client.models.generate_content(
-        model='gemini-1.5-flash',
+        model='gemini-2.5-flash',
         contents=prompt,
     )
     
     telegram_message = f"🤖 **تحليل رادار جدة الذكي (Gemini):**\n\n{response.text}"
     
+    # 3. إرسال الرسالة إلى التليجرام
     bot = Bot(token=TELEGRAM_BOT_TOKEN)
     await bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=telegram_message)
-    if __name__ == "__main__":
+
+if __name__ == "__main__":
     asyncio.run(analyze_and_send())
