@@ -32,7 +32,7 @@ async def analyze_and_send():
     
     # 2. توليد النص باستخدام النموذج الحديث المعتمد
     response = client.models.generate_content(
-        model='gemini-2.0-flash',
+        model='gemini-1.5-flash',
         contents=prompt,
     )
     
