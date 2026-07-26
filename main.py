@@ -3,7 +3,6 @@ import asyncio
 from telegram import Bot
 from google import genai
 
-# جلب المفاتيح من بيئة العمل
 TELEGRAM_BOT_TOKEN = os.getenv("BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("CHAT_ID")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -12,7 +11,7 @@ async def analyze_and_send():
     if not GEMINI_API_KEY:
         raise ValueError("خطأ: لم يتم العثور على GEMINI_API_KEY في GitHub Secrets!")
 
-    # 1. تهيئة العميل بالحزمة الحديثة الرسمية
+    # 1. تهيئة عميل Gemini الجديد
     client = genai.Client(api_key=GEMINI_API_KEY)
     
     sample_apartment = """
@@ -30,9 +29,9 @@ async def analyze_and_send():
     {sample_apartment}
     """
     
-    # 2. توليد النص باستخدام النموذج الحديث المعتمد
+    # 2. توليد التحليل بالنموذج المعتمد للعميل الجديد
     response = client.models.generate_content(
-        model='gemini-1.5-flash',
+        model='gemini-2.5-flash',
         contents=prompt,
     )
     
