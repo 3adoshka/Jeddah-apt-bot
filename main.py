@@ -31,7 +31,7 @@ async def analyze_and_send():
     
     # 2. توليد التحليل بالنموذج المعتمد للعميل الجديد
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
+        model='gemini-2.0-flash',
         contents=prompt,
     )
     
