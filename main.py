@@ -1,7 +1,7 @@
 import os
 import asyncio
 from telegram import Bot
-import google.generativeai as genai
+from google import genai
 
 # جلب المفاتيح من بيئة العمل
 TELEGRAM_BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -12,11 +12,8 @@ async def analyze_and_send():
     if not GEMINI_API_KEY:
         raise ValueError("خطأ: لم يتم العثور على GEMINI_API_KEY في GitHub Secrets!")
 
-    # 1. تهيئة Gemini
-    genai.configure(api_key=GEMINI_API_KEY)
-    
-    # اختيار النموذج المستقر
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    # 1. تهيئة العميل بالحزمة الحديثة الرسمية
+    client = genai.Client(api_key=GEMINI_API_KEY)
     
     sample_apartment = """
     شقة للإيجار حي النعيم بجدة، 4 غرف وصالة و2 حمام، العمارة مجددة بالكامل، 
@@ -33,12 +30,15 @@ async def analyze_and_send():
     {sample_apartment}
     """
     
-    # 2. توليد التحليل الذكي
-    response = model.generate_content(prompt)
+    # 2. توليد النص باستخدام النموذج الحديث المعتمد
+    response = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents=prompt,
+    )
     
     telegram_message = f"🤖 **تحليل رادار جدة الذكي (Gemini):**\n\n{response.text}"
     
-    # 3. إرسال الرسالة لتليجرام
+    # 3. إرسال الرسالة إلى التليجرام
     bot = Bot(token=TELEGRAM_BOT_TOKEN)
     await bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=telegram_message)
 
