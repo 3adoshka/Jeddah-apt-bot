@@ -40,6 +40,5 @@ async def analyze_and_send():
     # 4. إرسال الرسالة للتليجرام
     bot = Bot(token=TELEGRAM_BOT_TOKEN)
     await bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=telegram_message, parse_mode='Markdown')
-
 if name == "__main__":
     asyncio.run(analyze_and_send())
