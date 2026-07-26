@@ -39,6 +39,5 @@ async def analyze_and_send():
     
     bot = Bot(token=TELEGRAM_BOT_TOKEN)
     await bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=telegram_message)
-
-if name == "__main__":
+    if __name__ == "__main__":
     asyncio.run(analyze_and_send())
